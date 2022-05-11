@@ -1,0 +1,60 @@
+#include "Span.hpp"
+
+Span::Span(void) : tab_size(0)
+{
+	return ;
+}
+
+Span::Span(unsigned int N) : tab_size(N)
+{
+	return ;
+}
+
+Span& Span::operator=(const Span &other)
+{
+	this->tab_size = other.tab_size;
+	this->intList = other.intList;
+	return (*this);
+}
+
+
+Span::Span(const Span &other)
+{
+	*this = other;
+}
+
+Span::~Span(void)
+{
+	return ;
+}
+
+void Span::addNumber(int nb)
+{
+	if (this->intList.size() >= this->tab_size)
+		throw std::exception();
+	this->intList.push_back(nb);
+}
+
+int Span::shortestSpan(void)
+{
+	std::list<int> tmp(this->intList);
+	int actual_diff;
+	int new_diff;
+
+	if (this->intList.size() <= 1)
+		throw std::exception();
+	std::list<int>::iterator x;
+	tmp.sort();
+	x = tmp.begin();
+	std::list<int>::iterator y = ++tmp.begin();
+	actual_diff = *y - *x;
+	while (y != tmp.end())
+	{
+		new_diff = *y - *x;
+		if (new_diff < actual_diff)
+			actual_diff = new_diff;
+		x++;
+		y++;
+	}
+	return (actual_diff);
+}
