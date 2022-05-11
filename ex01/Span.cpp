@@ -58,3 +58,24 @@ int Span::shortestSpan(void)
 	}
 	return (actual_diff);
 }
+
+int Span::longestSpan(void)
+{
+	int min;
+	int max;
+
+	if (this->intList.size() <= 1)
+		throw std::exception();
+	min = *std::min_element(this->intList.begin(), this->intList.end());
+	max = *std::max_element(this->intList.begin(), this->intList.end());
+	if (min == max)
+		throw std::exception();
+	return (max - min);
+}
+
+void Span::list_display()
+{
+	std::list<int>::iterator it = this->intList.begin();
+	for (; it != this->intList.end(); it++)
+		std::cout << *it << std::endl;
+}
